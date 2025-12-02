@@ -39,6 +39,42 @@ extension PDF {
             self.info = info
             self.version = version
         }
+
+        /// Create a document with builder syntax
+        ///
+        /// Example:
+        /// ```swift
+        /// let doc = PDF.Document(title: "Report", author: "Jane") {
+        ///     PDF.Page(paperSize: .a4) {
+        ///         PDF.Content.text("Hello", at: .init(x: 72, y: 72))
+        ///     }
+        /// }
+        /// ```
+        public init(
+            title: String? = nil,
+            author: String? = nil,
+            subject: String? = nil,
+            keywords: String? = nil,
+            creator: String? = nil,
+            producer: String? = nil,
+            version: ISO_32000.Version = .v1_7,
+            @Page.Builder pages build: () -> [Page]
+        ) {
+            self.pages = build()
+            self.version = version
+            if title != nil || author != nil || subject != nil || keywords != nil || creator != nil || producer != nil {
+                self.info = Info(
+                    title: title,
+                    author: author,
+                    subject: subject,
+                    keywords: keywords,
+                    creator: creator,
+                    producer: producer
+                )
+            } else {
+                self.info = nil
+            }
+        }
     }
 }
 
