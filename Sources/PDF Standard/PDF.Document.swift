@@ -120,39 +120,38 @@ extension PDF {
     }
 }
 
-// MARK: - Writing
+// MARK: - Serialization
 
-extension PDF.Document {
-    /// Write document to bytes
+extension Array where Element == UInt8 {
+    /// Create PDF bytes from a document
     ///
-    /// - Parameter compress: Whether to use FlateDecode compression
-    /// - Returns: PDF file bytes
-    public func write(compress: Bool = true) -> [UInt8] {
-        let isoDocument = toISODocument()
+    /// Example:
+    /// ```swift
+    /// let document = PDF.Document { ... }
+    /// let bytes = [UInt8](document)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - document: The PDF document to serialize
+    ///   - compress: Whether to use FlateDecode compression (default: true)
+    public init(_ document: PDF.Document, compress: Bool = true) {
+        let isoDocument = ISO_32000.Document(document)
         var writer = compress
             ? ISO_32000.Writer.flate()
             : ISO_32000.Writer()
-        return writer.write(isoDocument)
+        self = writer.write(isoDocument)
     }
+}
 
-    /// Write document into buffer
-    public func write<Buffer: RangeReplaceableCollection>(
-        into buffer: inout Buffer,
-        compress: Bool = true
-    ) where Buffer.Element == UInt8 {
-        let isoDocument = toISODocument()
-        var writer = compress
-            ? ISO_32000.Writer.flate()
-            : ISO_32000.Writer()
-        writer.write(isoDocument, into: &buffer)
-    }
+// MARK: - ISO 32000 Conversion
 
-    /// Convert to ISO 32000 Document
-    func toISODocument() -> ISO_32000.Document {
-        ISO_32000.Document(
-            version: version,
-            pages: pages.map { $0.toISOPage() },
-            info: info?.isoInfo
+extension ISO_32000.Document {
+    /// Create from a high-level PDF document
+    public init(_ pdf: PDF.Document) {
+        self.init(
+            version: pdf.version,
+            pages: pdf.pages.map { ISO_32000.Page($0) },
+            info: pdf.info?.isoInfo
         )
     }
 }

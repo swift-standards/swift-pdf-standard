@@ -194,14 +194,14 @@ extension PDF.Content {
     }
 }
 
-// MARK: - Conversion to ISO 32000
+// MARK: - ISO 32000 Conversion
 
-extension PDF.Page {
-    /// Convert to ISO 32000 Page
-    func toISOPage() -> ISO_32000.Page {
+extension ISO_32000.Page {
+    /// Create from a high-level PDF page
+    public init(_ pdf: PDF.Page) {
         // Collect all fonts used
         var fontsUsed: Set<PDF.Font> = []
-        for op in content.operations {
+        for op in pdf.content.operations {
             if case .text(let textOp) = op {
                 fontsUsed.insert(textOp.font)
             }
@@ -216,11 +216,11 @@ extension PDF.Page {
 
         // Build content stream
         let contentStream = ISO_32000.ContentStream { builder in
-            for op in content.operations {
+            for op in pdf.content.operations {
                 switch op {
                 case .text(let textOp):
                     // Transform from top-left to bottom-left coordinates
-                    let pdfY = paperSize.height - textOp.position.y
+                    let pdfY = pdf.paperSize.height - textOp.position.y
 
                     builder.beginText()
 
@@ -240,8 +240,8 @@ extension PDF.Page {
                 case .graphics(let graphicsOp):
                     switch graphicsOp {
                     case .line(let from, let to, let color, let width):
-                        let pdfFromY = paperSize.height - from.y
-                        let pdfToY = paperSize.height - to.y
+                        let pdfFromY = pdf.paperSize.height - from.y
+                        let pdfToY = pdf.paperSize.height - to.y
 
                         switch color {
                         case .gray(let g):
@@ -257,7 +257,7 @@ extension PDF.Page {
 
                     case .rectangle(let rect, let fill, let stroke, let strokeWidth):
                         // Transform Y coordinate
-                        let pdfY = paperSize.height - rect.y - rect.height
+                        let pdfY = pdf.paperSize.height - rect.y - rect.height
 
                         if let fill = fill {
                             switch fill {
@@ -292,11 +292,11 @@ extension PDF.Page {
             }
         }
 
-        return ISO_32000.Page(
+        self.init(
             mediaBox: ISO_32000.Rectangle(
                 x: 0, y: 0,
-                width: paperSize.width,
-                height: paperSize.height
+                width: pdf.paperSize.width,
+                height: pdf.paperSize.height
             ),
             content: contentStream,
             resources: ISO_32000.Resources(fonts: fontResources)
