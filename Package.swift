@@ -16,6 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../swift-iso-32000"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0"),
     ],
     targets: [
         .target(
@@ -27,7 +28,10 @@ let package = Package(
         ),
         .testTarget(
             name: "PDF Standard".tests,
-            dependencies: ["PDF Standard"]
+            dependencies: [
+                "PDF Standard",
+                .product(name: "InlineSnapshotTesting", package: "swift-snapshot-testing"),
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]
