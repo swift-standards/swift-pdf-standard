@@ -64,7 +64,7 @@ extension PDF {
     /// Page content
     public struct Content: Sendable {
         /// Content operations
-        var operations: [Operation]
+        public var operations: [Operation]
 
         /// Create empty content
         public init() {
@@ -72,28 +72,36 @@ extension PDF {
         }
 
         /// Create content with operations
-        init(operations: [Operation]) {
+        public init(operations: [Operation]) {
             self.operations = operations
         }
     }
 
     /// Content operation
-    enum Operation: Sendable {
+    public enum Operation: Sendable {
         case text(TextOperation)
         case graphics(GraphicsOperation)
     }
 
     /// Text operation
-    struct TextOperation: Sendable {
-        var text: String
-        var position: Point
-        var font: Font
-        var size: Double
-        var color: Color
+    public struct TextOperation: Sendable {
+        public var text: String
+        public var position: Point
+        public var font: Font
+        public var size: Double
+        public var color: Color
+
+        public init(text: String, position: Point, font: Font, size: Double, color: Color) {
+            self.text = text
+            self.position = position
+            self.font = font
+            self.size = size
+            self.color = color
+        }
     }
 
     /// Graphics operation
-    enum GraphicsOperation: Sendable {
+    public enum GraphicsOperation: Sendable {
         case line(from: Point, to: Point, color: Color, width: Double)
         case rectangle(Rect, fill: Color?, stroke: Color?, strokeWidth: Double)
     }
