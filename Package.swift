@@ -1,0 +1,46 @@
+// swift-tools-version: 6.2
+
+import PackageDescription
+
+// swift-pdf-standard: Unified PDF API with ergonomic coordinate system
+let package = Package(
+    name: "swift-pdf-standard",
+    platforms: [
+        .macOS(.v15),
+        .iOS(.v18),
+        .tvOS(.v18),
+        .watchOS(.v11),
+    ],
+    products: [
+        .library(name: "PDF Standard", targets: ["PDF Standard"]),
+    ],
+    dependencies: [
+        .package(path: "../swift-iso-32000"),
+    ],
+    targets: [
+        .target(
+            name: "PDF Standard",
+            dependencies: [
+                .product(name: "ISO 32000", package: "swift-iso-32000"),
+                .product(name: "ISO 32000 Flate", package: "swift-iso-32000"),
+            ]
+        ),
+        .testTarget(
+            name: "PDF Standard".tests,
+            dependencies: ["PDF Standard"]
+        ),
+    ],
+    swiftLanguageModes: [.v6]
+)
+
+extension String {
+    var tests: Self { self + " Tests" }
+}
+
+for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
+    target.swiftSettings = (target.swiftSettings ?? []) + [
+        .enableUpcomingFeature("ExistentialAny"),
+        .enableUpcomingFeature("InternalImportsByDefault"),
+        .enableUpcomingFeature("MemberImportVisibility"),
+    ]
+}
