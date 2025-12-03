@@ -122,7 +122,7 @@ struct `PDF.Content Tests` {
     @Test
     func `Creates content with operations`() {
         let content = PDF.Content(operations: [
-            .text(PDF.TextOperation(
+            .text(PDF.Content.Text.Operation(
                 text: "Hello",
                 position: .zero,
                 font: .helvetica,
@@ -169,14 +169,14 @@ struct `PDF.Content Tests` {
     }
 }
 
-// MARK: - PDF.TextOperation Tests
+// MARK: - PDF.Content.Text.Operation Tests
 
 @Suite
-struct `PDF.TextOperation Tests` {
+struct `PDF.Content.Text.Operation Tests` {
 
     @Test
     func `Creates text operation with all properties`() {
-        let op = PDF.TextOperation(
+        let op = PDF.Content.Text.Operation(
             text: "Sample",
             position: PDF.Point(x: 50, y: 100),
             font: .courierBold,
