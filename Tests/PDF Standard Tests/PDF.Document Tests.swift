@@ -21,7 +21,7 @@ struct `PDF.Document Tests` {
     @Test
     func `Creates document with info`() {
         let page = PDF.Page(paperSize: .letter, content: PDF.Content())
-        let info = PDF.Info(title: "Test", author: "Swift")
+        let info = PDF.Document.Info(title: "Test", author: "Swift")
         let doc = PDF.Document(page: page, info: info)
 
         #expect(doc.info?.title == "Test")
@@ -151,14 +151,14 @@ struct `PDF.Document Tests` {
     }
 }
 
-// MARK: - PDF.Info Tests
+// MARK: - PDF.Document.Info Tests
 
 @Suite
-struct `PDF.Info Tests` {
+struct `PDF.Document.Info Tests` {
 
     @Test
     func `Creates info with all fields`() {
-        let info = PDF.Info(
+        let info = PDF.Document.Info(
             title: "Title",
             author: "Author",
             subject: "Subject",
@@ -177,7 +177,7 @@ struct `PDF.Info Tests` {
 
     @Test
     func `Creates info with partial fields`() {
-        let info = PDF.Info(title: "Only Title")
+        let info = PDF.Document.Info(title: "Only Title")
 
         #expect(info.title == "Only Title")
         #expect(info.author == nil)
@@ -186,7 +186,7 @@ struct `PDF.Info Tests` {
 
     @Test
     func `Converts to ISO info`() {
-        let info = PDF.Info(title: "Test", author: "Swift")
+        let info = PDF.Document.Info(title: "Test", author: "Swift")
         let isoInfo = info.isoInfo
 
         #expect(isoInfo.title == "Test")

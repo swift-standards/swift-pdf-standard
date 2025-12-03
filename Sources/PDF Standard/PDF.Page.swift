@@ -14,26 +14,33 @@ extension PDF {
         /// Page content
         public var content: Content
 
+        /// Link annotations
+        public var annotations: [Annotation]
+
         /// Create a page
         public init(
             paperSize: PaperSize = .a4,
             margins: EdgeInsets = .standard,
-            content: Content
+            content: Content,
+            annotations: [Annotation] = []
         ) {
             self.paperSize = paperSize
             self.margins = margins
             self.content = content
+            self.annotations = annotations
         }
 
         /// Create a page using a builder
         public init(
             paperSize: PaperSize = .a4,
             margins: EdgeInsets = .standard,
-            @ContentBuilder _ build: () -> Content
+            annotations: [Annotation] = [],
+            @PDF.Content.Builder _ build: () -> Content
         ) {
             self.paperSize = paperSize
             self.margins = margins
             self.content = build()
+            self.annotations = annotations
         }
 
         /// Available width for content (paper width minus margins)
@@ -57,144 +64,6 @@ extension PDF {
         }
     }
 }
-
-// MARK: - Page Builder
-
-extension PDF.Page {
-    /// Result builder for document pages
-    @resultBuilder
-    public struct Builder {
-        public static func buildBlock(_ components: [PDF.Page]...) -> [PDF.Page] {
-            components.flatMap { $0 }
-        }
-
-        public static func buildOptional(_ component: [PDF.Page]?) -> [PDF.Page] {
-            component ?? []
-        }
-
-        public static func buildEither(first component: [PDF.Page]) -> [PDF.Page] {
-            component
-        }
-
-        public static func buildEither(second component: [PDF.Page]) -> [PDF.Page] {
-            component
-        }
-
-        public static func buildArray(_ components: [[PDF.Page]]) -> [PDF.Page] {
-            components.flatMap { $0 }
-        }
-
-        public static func buildExpression(_ page: PDF.Page) -> [PDF.Page] {
-            [page]
-        }
-    }
-}
-
-// MARK: - Page Content
-
-extension PDF {
-    /// Page content
-    public struct Content: Sendable {
-        /// Content operations
-        public var operations: [Operation]
-
-        /// Create empty content
-        public init() {
-            self.operations = []
-        }
-
-        /// Create content with operations
-        public init(operations: [Operation]) {
-            self.operations = operations
-        }
-    }
-
-    /// Content operation
-    public enum Operation: Sendable {
-        case text(TextOperation)
-        case graphics(GraphicsOperation)
-    }
-
-    /// Text operation
-    public struct TextOperation: Sendable {
-        public var text: String
-        public var position: Point
-        public var font: Font
-        public var size: Double
-        public var color: Color
-
-        public init(text: String, position: Point, font: Font, size: Double, color: Color) {
-            self.text = text
-            self.position = position
-            self.font = font
-            self.size = size
-            self.color = color
-        }
-    }
-
-    /// Graphics operation
-    public enum GraphicsOperation: Sendable {
-        case line(from: Point, to: Point, color: Color, width: Double)
-        case rectangle(Rect, fill: Color?, stroke: Color?, strokeWidth: Double)
-    }
-}
-
-// MARK: - Content Builder
-
-extension PDF {
-    /// Result builder for page content
-    @resultBuilder
-    public struct ContentBuilder {
-        public static func buildExpression(_ expression: Content) -> Content {
-            expression
-        }
-
-        public static func buildBlock(_ components: Content...) -> Content {
-            Content(operations: components.flatMap { $0.operations })
-        }
-
-        public static func buildOptional(_ component: Content?) -> Content {
-            component ?? Content()
-        }
-
-        public static func buildEither(first component: Content) -> Content {
-            component
-        }
-
-        public static func buildEither(second component: Content) -> Content {
-            component
-        }
-
-        public static func buildArray(_ components: [Content]) -> Content {
-            Content(operations: components.flatMap { $0.operations })
-        }
-    }
-}
-
-// MARK: - Text Content
-
-extension PDF.Content {
-    /// Add text at a position
-    public static func text(
-        _ text: String,
-        at position: PDF.Point,
-        font: PDF.Font = .helvetica,
-        size: Double = 12,
-        color: PDF.Color = .black
-    ) -> PDF.Content {
-        PDF.Content(operations: [
-            .text(PDF.TextOperation(
-                text: text,
-                position: position,
-                font: font,
-                size: size,
-                color: color
-            ))
-        ])
-    }
-}
-
-// MARK: - ISO 32000 Conversion
 
 extension ISO_32000.Page {
     /// Create from a high-level PDF page
@@ -292,6 +161,9 @@ extension ISO_32000.Page {
             }
         }
 
+        // Convert annotations
+        let isoAnnotations = pdf.annotations.map { $0.toISO(pageHeight: pdf.paperSize.height) }
+
         self.init(
             mediaBox: ISO_32000.Rectangle(
                 x: 0, y: 0,
@@ -299,7 +171,8 @@ extension ISO_32000.Page {
                 height: pdf.paperSize.height
             ),
             content: contentStream,
-            resources: ISO_32000.Resources(fonts: fontResources)
+            resources: ISO_32000.Resources(fonts: fontResources),
+            annotations: isoAnnotations
         )
     }
 }
