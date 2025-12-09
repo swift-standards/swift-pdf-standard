@@ -12,7 +12,7 @@ Replace Apple-specific PDF generation in `/Users/coen/Developer/coenttb/swift-ht
 
 | Utility | PDF Use |
 |---------|---------|
-| `UInt8.ASCII.Serializable` protocol | Base for all PDF types |
+| `Binary.ASCII.Serializable` protocol | Base for all PDF types |
 | `UInt8.ascii.leftParenthesis/rightParenthesis` | Literal strings: `(Hello)` |
 | `UInt8.ascii.lessThan/greaterThan` | Hex strings: `<48656C6C6F>` |
 | `UInt8.ascii.leftBracket/rightBracket` | Arrays: `[1 2 3]` |
@@ -29,8 +29,8 @@ Replace Apple-specific PDF generation in `/Users/coen/Developer/coenttb/swift-ht
 
 | Utility | PDF Use |
 |---------|---------|
-| `UInt8.Serializable` protocol | Binary serialization base |
-| `[UInt8].Endianness.big` | Cross-reference offsets |
+| `Binary.Serializable` protocol | Binary serialization base |
+| `Binary.Endianness.big` | Cross-reference offsets |
 | `buffer.append(utf8: string)` | Append text to streams |
 | `buffer.append(UInt32, endianness:)` | Binary integers |
 | `Double.rounded(to: places)` | Limit coordinate precision |
@@ -40,7 +40,7 @@ Replace Apple-specific PDF generation in `/Users/coen/Developer/coenttb/swift-ht
 ### What We Don't Need to Implement
 
 - Byte constants (all ASCII available via `UInt8.ascii.*`)
-- Serialization protocols (use `UInt8.ASCII.Serializable`)
+- Serialization protocols (use `Binary.ASCII.Serializable`)
 - Hex parsing (use `UInt8.ascii(hexDigit:)`)
 - Buffer operations (use existing `append` methods)
 - Whitespace handling (use existing classification + trimming)
@@ -177,7 +177,7 @@ swift-pdf-standard (unified API)
 | **NS-2** Nested Type | All types under namespace | `ISO_32000.COS.Name`, `RFC_1950.Adler32` |
 | **NS-3** Deeply Nested | `ISO_32000.COS.*` types | COS is sub-namespace |
 | **NS-4** Feature Area | `ISO_32000.COS`, `ISO_32000.Document` | Logical groupings |
-| **SER-1** Serializable | All PDF types | Conform to `UInt8.ASCII.Serializable` |
+| **SER-1** Serializable | All PDF types | Conform to `Binary.ASCII.Serializable` |
 | **SER-3** Complex Serialize | `COS.Object`, `COS.Dictionary` | Multiple fields |
 | **SER-4** Dual Serialization | `COS.Stream` | Binary data + ASCII header |
 | **ERR-1** Error Type | Each type with validation | Nested under type |
@@ -210,7 +210,7 @@ extension ISO_32000.COS.Name: Hashable {
 PDF has both ASCII syntax and binary content:
 ```swift
 // COS.Stream has BOTH representations
-extension ISO_32000.COS.Stream: UInt8.Serializable {
+extension ISO_32000.COS.Stream: Binary.Serializable {
     /// Binary: raw stream data (for embedding in PDF file)
     public static func serialize<Buffer>(_ value: Self, into buffer: inout Buffer)
     where Buffer.Element == UInt8 {
@@ -223,7 +223,7 @@ extension ISO_32000.COS.Stream: UInt8.Serializable {
     }
 }
 
-extension ISO_32000.COS.Stream: UInt8.ASCII.Serializable {
+extension ISO_32000.COS.Stream: Binary.ASCII.Serializable {
     /// ASCII: for display/debugging only
     public static func serialize<Buffer>(ascii value: Self, into buffer: inout Buffer)
     where Buffer.Element == UInt8 {
@@ -337,8 +337,8 @@ Sources/ISO 32000/
 extension ISO_32000.COS.Name: Sendable {}                    // ✓ Required
 extension ISO_32000.COS.Name: Hashable {}                    // ✓ PROTO-2 (case-sensitive)
 extension ISO_32000.COS.Name: Codable {}                     // ✓ Required for leaf types
-extension ISO_32000.COS.Name: UInt8.ASCII.Serializable {}    // ✓ SER-1
-extension ISO_32000.COS.Name: UInt8.ASCII.RawRepresentable {} // ✓ Required
+extension ISO_32000.COS.Name: Binary.ASCII.Serializable {}    // ✓ SER-1
+extension ISO_32000.COS.Name: Binary.ASCII.RawRepresentable {} // ✓ Required
 extension ISO_32000.COS.Name: CustomStringConvertible {}     // ✓ Required
 ```
 
@@ -346,7 +346,7 @@ extension ISO_32000.COS.Name: CustomStringConvertible {}     // ✓ Required
 ```swift
 extension ISO_32000.COS.Object: Sendable {}                  // ✓ Required
 extension ISO_32000.COS.Object: Hashable {}                  // ✓ Required
-extension ISO_32000.COS.Object: UInt8.ASCII.Serializable {}  // ✓ Required
+extension ISO_32000.COS.Object: Binary.ASCII.Serializable {}  // ✓ Required
 extension ISO_32000.COS.Object: CustomStringConvertible {}   // ✓ Required
 // Codable: DEFERRED - semantic mapping unclear, add later with versioning story
 ```
@@ -364,8 +364,8 @@ extension ISO_32000.COS.Object: CustomStringConvertible {}   // ✓ Required
 - [x] Updated exports.swift (FILE-1)
 
 ### Required Conformances
-- [x] UInt8.ASCII.Serializable (SER-1)
-- [x] UInt8.ASCII.RawRepresentable
+- [x] Binary.ASCII.Serializable (SER-1)
+- [x] Binary.ASCII.RawRepresentable
 - [x] CustomStringConvertible
 - [x] Hashable (PROTO-2: case-sensitive)
 - [x] Sendable
@@ -591,7 +591,7 @@ let package = Package(
                 .product(name: "RFC 4648", package: "swift-rfc-4648"),
                 .product(name: "IEEE 754", package: "swift-ieee-754"),
                 .product(name: "ISO 8601", package: "swift-iso-8601"),
-                .product(name: "Numeric Formatting", package: "swift-numeric-formatting-standard"),
+                .product(name: "Formatting", package: "swift-standards"),
             ]
         ),
         .target(
@@ -704,8 +704,8 @@ extension ISO_32000.COS {
     }
 }
 
-// Example: All PDF types conform to existing UInt8.ASCII.Serializable
-extension ISO_32000.COS.Object: UInt8.ASCII.Serializable {
+// Example: All PDF types conform to existing Binary.ASCII.Serializable
+extension ISO_32000.COS.Object: Binary.ASCII.Serializable {
     public static func serialize<Buffer: RangeReplaceableCollection>(
         ascii value: Self, into buffer: inout Buffer
     ) where Buffer.Element == UInt8 {
@@ -744,7 +744,7 @@ extension ISO_32000.COS.Object: UInt8.ASCII.Serializable {
 
 extension ISO_32000.COS {
     /// PDF Name object - validated at construction
-    public struct Name: Sendable, Hashable, UInt8.ASCII.Serializable {
+    public struct Name: Sendable, Hashable, Binary.ASCII.Serializable {
         public let rawValue: String
 
         private init(__unchecked: Void, rawValue: String) { self.rawValue = rawValue }
@@ -826,7 +826,7 @@ extension ISO_32000.COS.StringValue {
     }
 }
 
-extension ISO_32000.COS.StringValue: UInt8.ASCII.Serializable {
+extension ISO_32000.COS.StringValue: Binary.ASCII.Serializable {
     public static func serialize<Buffer>(ascii value: Self, into buffer: inout Buffer)
     where Buffer.Element == UInt8 {
         // Serializer decides hex vs literal based on content analysis
@@ -917,7 +917,7 @@ extension ISO_32000.ContentStream {
     }
 }
 
-extension ISO_32000.ContentStream.Operator: UInt8.ASCII.Serializable {
+extension ISO_32000.ContentStream.Operator: Binary.ASCII.Serializable {
     /// Canonical serialization - single source of truth for operator output
     package static func serialize<Buffer>(ascii op: Self, into buffer: inout Buffer)
     where Buffer.Element == UInt8 {
@@ -1696,7 +1696,7 @@ func lineWrapping() {
     #expect(lines.count > 1, "Should wrap into multiple lines")
 
     for line in lines {
-        let width = context.font.standard14.metrics.stringWidth(line, atSize: context.fontSize)
+        let width = context.style.font.standard14.metrics.stringWidth(line, atSize: context.style.fontSize)
         #expect(width <= context.availableWidth, "Line '\(line)' exceeds available width")
     }
 }

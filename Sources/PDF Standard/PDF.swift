@@ -2,12 +2,10 @@
 //
 // swift-pdf-standard
 //
-// Unified PDF API with ergonomic coordinate system.
-//
-// This module provides a high-level API for PDF generation that uses
-// a top-left origin with y increasing downward (matching HTML/CSS).
-// Coordinates are automatically transformed to PDF's bottom-left origin
-// at the final emission stage.
+// Re-exports ISO_32000 and provides convenience access to UserSpace types.
 
-/// PDF namespace for high-level document generation
-public enum PDF: Sendable {}
+public import ISO_32000
+
+/// PDF namespace (alias for ISO_32000)
+public typealias PDF = ISO_32000
+
