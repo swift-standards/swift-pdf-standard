@@ -18,19 +18,19 @@ extension PDF {
     /// PDF.Rectangle(width: 100, height: 50, fill: .blue, stroke: .black, strokeWidth: 2)
     /// ```
     public struct Rectangle: Sendable, Hashable {
-        
+
         /// The underlying rectangle geometry
         public var rect: PDF.UserSpace.Rectangle
-        
+
         /// Fill color (nil for no fill)
         public var fill: PDF.Color?
-        
+
         /// Stroke color (nil for no stroke)
         public var stroke: PDF.Color?
-        
+
         /// Stroke width
         public var strokeWidth: PDF.UserSpace.Unit
-        
+
         /// Create a styled rectangle from geometry
         public init(
             _ rect: PDF.UserSpace.Rectangle,
@@ -43,7 +43,7 @@ extension PDF {
             self.stroke = stroke
             self.strokeWidth = strokeWidth
         }
-        
+
         /// Create from dimensions
         public init(
             x: PDF.UserSpace.Unit = 0,
@@ -75,7 +75,7 @@ extension Geometry.Rectangle where Scalar == PDF.UserSpace.Unit {
             fill: color
         )
     }
-    
+
     /// Create a styled PDF rectangle with stroke
     public func stroked(_ color: PDF.Color, width: PDF.UserSpace.Unit = 1) -> PDF.Rectangle {
         PDF.Rectangle(
@@ -84,7 +84,7 @@ extension Geometry.Rectangle where Scalar == PDF.UserSpace.Unit {
             strokeWidth: width
         )
     }
-    
+
     /// Create a styled PDF rectangle with fill and stroke
     public func styled(
         fill: PDF.Color? = nil,
