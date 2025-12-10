@@ -16,7 +16,7 @@ let package = Package(
         .library(name: "PDF Standard", targets: ["PDF Standard"]),
     ],
     dependencies: [
-        .package(path: "../swift-iso-32000"),
+        .package(url: "https://github.com/swift-standards/swift-iso-32000", from: "0.1.0"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0"),
     ],
     targets: [

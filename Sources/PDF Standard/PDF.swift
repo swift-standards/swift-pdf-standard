@@ -8,4 +8,3 @@ public import ISO_32000
 
 /// PDF namespace (alias for ISO_32000)
 public typealias PDF = ISO_32000
-
