@@ -46,19 +46,19 @@ extension PDF {
 
         /// Create from dimensions
         public init(
-            x: PDF.UserSpace.Unit = 0,
-            y: PDF.UserSpace.Unit = 0,
-            width: PDF.UserSpace.Unit,
-            height: PDF.UserSpace.Unit,
+            x: PDF.UserSpace.X = 0,
+            y: PDF.UserSpace.Y = 0,
+            width: PDF.UserSpace.Width,
+            height: PDF.UserSpace.Height,
             fill: PDF.Color? = nil,
             stroke: PDF.Color? = nil,
             strokeWidth: PDF.UserSpace.Unit = 1
         ) {
             self.rect = PDF.UserSpace.Rectangle(
-                x: .init(x),
-                y: .init(y),
-                width: .init(width),
-                height: .init(height)
+                x: x,
+                y: y,
+                width: width,
+                height: height
             )
             self.fill = fill
             self.stroke = stroke
