@@ -32,7 +32,7 @@ extension PDF {
         public var defaultFont: PDF.Font
 
         /// Default font size in points (default: 12)
-        public var defaultFontSize: PDF.UserSpace.Unit
+        public var defaultFontSize: PDF.UserSpace.Size<1>
 
         /// Default text color (default: black)
         public var defaultColor: PDF.Color
@@ -60,7 +60,7 @@ extension PDF {
             paperSize: PDF.UserSpace.Rectangle = .a4,
             margins: PDF.UserSpace.EdgeInsets = .init(all: 72),
             defaultFont: PDF.Font = .times,
-            defaultFontSize: PDF.UserSpace.Unit = 12,
+            defaultFontSize: PDF.UserSpace.Size<1> = 12,
             defaultColor: PDF.Color = .black,
             lineHeight: Double = 1.2,
             version: ISO_32000.Version = .v1_7,
@@ -88,7 +88,7 @@ extension PDF {
         }
 
         /// Content area size (paper size minus margins)
-        public var content: PDF.UserSpace.Size {
+        public var content: PDF.UserSpace.Size<2> {
             .init(
                 width: paperSize.width - margins.horizontal,
                 height: paperSize.height - margins.vertical

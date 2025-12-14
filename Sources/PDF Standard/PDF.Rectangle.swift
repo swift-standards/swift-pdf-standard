@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PDF.Rectangle.swift
 //  swift-pdf-standard
 //
 //  Created by Coen ten Thije Boonkkamp on 05/12/2025.
@@ -15,7 +15,7 @@ extension PDF {
     ///
     /// ```swift
     /// PDF.Rectangle(width: 100, height: 50, fill: .red)
-    /// PDF.Rectangle(width: 100, height: 50, fill: .blue, stroke: .black, strokeWidth: 2)
+    /// PDF.Rectangle(width: 100, height: 50, fill: .blue, stroke: .init(.black, width: 2))
     /// ```
     public struct Rectangle: Sendable, Hashable {
 
@@ -25,23 +25,18 @@ extension PDF {
         /// Fill color (nil for no fill)
         public var fill: PDF.Color?
 
-        /// Stroke color (nil for no stroke)
-        public var stroke: PDF.Color?
-
-        /// Stroke width
-        public var strokeWidth: PDF.UserSpace.Unit
+        /// Stroke style (nil for no stroke)
+        public var stroke: PDF.Stroke?
 
         /// Create a styled rectangle from geometry
         public init(
             _ rect: PDF.UserSpace.Rectangle,
             fill: PDF.Color? = nil,
-            stroke: PDF.Color? = nil,
-            strokeWidth: PDF.UserSpace.Unit = 1
+            stroke: PDF.Stroke? = nil
         ) {
             self.rect = rect
             self.fill = fill
             self.stroke = stroke
-            self.strokeWidth = strokeWidth
         }
 
         /// Create from dimensions
@@ -51,8 +46,7 @@ extension PDF {
             width: PDF.UserSpace.Width,
             height: PDF.UserSpace.Height,
             fill: PDF.Color? = nil,
-            stroke: PDF.Color? = nil,
-            strokeWidth: PDF.UserSpace.Unit = 1
+            stroke: PDF.Stroke? = nil
         ) {
             self.rect = PDF.UserSpace.Rectangle(
                 x: x,
@@ -62,40 +56,26 @@ extension PDF {
             )
             self.fill = fill
             self.stroke = stroke
-            self.strokeWidth = strokeWidth
         }
     }
 }
 
-extension Geometry.Rectangle where Scalar == PDF.UserSpace.Unit {
+extension PDF.UserSpace.Rectangle {
     /// Create a styled PDF rectangle with fill color
     public func filled(_ color: PDF.Color) -> PDF.Rectangle {
-        PDF.Rectangle(
-            PDF.UserSpace.Rectangle(llx: llx, lly: lly, urx: urx, ury: ury),
-            fill: color
-        )
+        PDF.Rectangle(self, fill: color)
     }
 
     /// Create a styled PDF rectangle with stroke
-    public func stroked(_ color: PDF.Color, width: PDF.UserSpace.Unit = 1) -> PDF.Rectangle {
-        PDF.Rectangle(
-            PDF.UserSpace.Rectangle(llx: llx, lly: lly, urx: urx, ury: ury),
-            stroke: color,
-            strokeWidth: width
-        )
+    public func stroked(_ color: PDF.Color, width: PDF.UserSpace.Width = 1) -> PDF.Rectangle {
+        PDF.Rectangle(self, stroke: .init(color, width: width))
     }
 
     /// Create a styled PDF rectangle with fill and stroke
     public func styled(
         fill: PDF.Color? = nil,
-        stroke: PDF.Color? = nil,
-        strokeWidth: PDF.UserSpace.Unit = 1
+        stroke: PDF.Stroke? = nil
     ) -> PDF.Rectangle {
-        PDF.Rectangle(
-            PDF.UserSpace.Rectangle(llx: llx, lly: lly, urx: urx, ury: ury),
-            fill: fill,
-            stroke: stroke,
-            strokeWidth: strokeWidth
-        )
+        PDF.Rectangle(self, fill: fill, stroke: stroke)
     }
 }
