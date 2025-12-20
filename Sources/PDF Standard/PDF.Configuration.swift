@@ -19,50 +19,50 @@ extension PDF {
     /// ```
     public struct Configuration: Sendable {
         // MARK: - Layout
-
+        
         /// Paper size (default: A4)
         public var paperSize: PDF.UserSpace.Rectangle
-
+        
         /// Page margins (default: 72 points / 1 inch on all sides)
         public var margins: PDF.UserSpace.EdgeInsets
-
+        
         // MARK: - Typography
-
+        
         /// Default font (default: Times)
         public var defaultFont: PDF.Font
-
+        
         /// Default font size in points (default: 12)
         public var defaultFontSize: PDF.UserSpace.Size<1>
-
+        
         /// Default text color (default: black)
         public var defaultColor: PDF.Color
-
+        
         /// Line height multiplier (default: 1.2)
-        public var lineHeight: Double
-
+        public var lineHeight: Scale<1, Double>
+        
         // MARK: - Document
-
+        
         /// PDF version (default: 1.7)
         public var version: ISO_32000.Version
-
+        
         /// Document metadata (title, author, etc.)
         public var info: ISO_32000.Document.Info?
-
+        
         /// Viewer preferences
         public var viewer: ISO_32000.Viewer
-
+        
         /// Document outline (bookmarks) settings
         public var outline: Outline
-
+        
         // MARK: - Initialization
-
+        
         public init(
             paperSize: PDF.UserSpace.Rectangle = .a4,
             margins: PDF.UserSpace.EdgeInsets = .init(all: 72),
             defaultFont: PDF.Font = .times,
             defaultFontSize: PDF.UserSpace.Size<1> = 12,
             defaultColor: PDF.Color = .black,
-            lineHeight: Double = 1.2,
+            lineHeight: Scale<1, Double> = 1.2,
             version: ISO_32000.Version = .v1_7,
             info: ISO_32000.Document.Info? = nil,
             viewer: ISO_32000.Viewer = .init(),
@@ -79,21 +79,24 @@ extension PDF {
             self.viewer = viewer
             self.outline = outline
         }
+    }
+}
 
-        // MARK: - Computed Properties
-
-        /// Media box (same as paper size)
-        public var mediaBox: PDF.UserSpace.Rectangle {
-            paperSize
-        }
-
-        /// Content area size (paper size minus margins)
-        public var content: PDF.UserSpace.Size<2> {
-            .init(
-                width: paperSize.width - margins.horizontal,
-                height: paperSize.height - margins.vertical
-            )
-        }
+extension PDF.Configuration {
+    
+    // MARK: - Computed Properties
+    
+    /// Media box (same as paper size)
+    public var mediaBox: PDF.UserSpace.Rectangle {
+        paperSize
+    }
+    
+    /// Content area size (paper size minus margins)
+    public var content: PDF.UserSpace.Size<2> {
+        .init(
+            width: paperSize.width - margins.horizontal,
+            height: paperSize.height - margins.vertical
+        )
     }
 }
 
