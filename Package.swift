@@ -13,10 +13,10 @@ let package = Package(
         .visionOS(.v26),
     ],
     products: [
-        .library(name: "PDF Standard", targets: ["PDF Standard"]),
+        .library(name: "PDF Standard", targets: ["PDF Standard"])
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-standards/swift-iso-32000", from: "0.2.1"),
+        .package(url: "https://github.com/swift-standards/swift-iso-32000", from: "0.4.1"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0"),
     ],
     targets: [
@@ -43,9 +43,10 @@ extension String {
 }
 
 for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
-    target.swiftSettings = (target.swiftSettings ?? []) + [
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableUpcomingFeature("InternalImportsByDefault"),
-        .enableUpcomingFeature("MemberImportVisibility"),
-    ]
+    target.swiftSettings =
+        (target.swiftSettings ?? []) + [
+            .enableUpcomingFeature("ExistentialAny"),
+            .enableUpcomingFeature("InternalImportsByDefault"),
+            .enableUpcomingFeature("MemberImportVisibility"),
+        ]
 }
