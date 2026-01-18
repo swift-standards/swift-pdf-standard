@@ -10,30 +10,23 @@ let package = Package(
         .iOS(.v26),
         .tvOS(.v26),
         .watchOS(.v26),
-        .visionOS(.v26),
+        .visionOS(.v26)
     ],
     products: [
         .library(name: "PDF Standard", targets: ["PDF Standard"])
     ],
     dependencies: [
         .package(path: "../swift-iso-32000"),
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0")
     ],
     targets: [
         .target(
             name: "PDF Standard",
             dependencies: [
                 .product(name: "ISO 32000", package: "swift-iso-32000"),
-                .product(name: "ISO 32000 Flate", package: "swift-iso-32000"),
+                .product(name: "ISO 32000 Flate", package: "swift-iso-32000")
             ]
-        ),
-        .testTarget(
-            name: "PDF Standard".tests,
-            dependencies: [
-                "PDF Standard",
-                .product(name: "InlineSnapshotTesting", package: "swift-snapshot-testing"),
-            ]
-        ),
+        )
     ],
     swiftLanguageModes: [.v6]
 )
@@ -47,6 +40,6 @@ for target in package.targets where ![.system, .binary, .plugin].contains(target
         (target.swiftSettings ?? []) + [
             .enableUpcomingFeature("ExistentialAny"),
             .enableUpcomingFeature("InternalImportsByDefault"),
-            .enableUpcomingFeature("MemberImportVisibility"),
+            .enableUpcomingFeature("MemberImportVisibility")
         ]
 }
