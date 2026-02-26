@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../swift-iso-32000"),
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0")
+        // .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0")
     ],
     targets: [
         .target(
@@ -26,7 +26,13 @@ let package = Package(
                 .product(name: "ISO 32000", package: "swift-iso-32000"),
                 .product(name: "ISO 32000 Flate", package: "swift-iso-32000")
             ]
-        )
+        ),
+        .testTarget(
+            name: "PDF Standard Tests",
+            dependencies: [
+                "PDF Standard",
+            ]
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
@@ -41,6 +47,7 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
         .enableUpcomingFeature("MemberImportVisibility"),
+        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
         .enableExperimentalFeature("Lifetimes"),
         .enableExperimentalFeature("SuppressedAssociatedTypes"),
         .enableExperimentalFeature("SuppressedAssociatedTypesWithDefaults"),
