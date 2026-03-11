@@ -26,7 +26,7 @@ extension PDF {
         /// - Parameters:
         ///   - color: The stroke color
         ///   - width: The line width (default: 1 user space unit)
-        public init(_ color: PDF.Color, width: PDF.UserSpace.Width = 1) {
+        public init(_ color: PDF.Color, width: PDF.UserSpace.Width = .init(1)) {
             self.color = color
             self.width = width
         }

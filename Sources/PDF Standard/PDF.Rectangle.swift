@@ -41,8 +41,8 @@ extension PDF {
 
         /// Create from dimensions
         public init(
-            x: PDF.UserSpace.X = 0,
-            y: PDF.UserSpace.Y = 0,
+            x: PDF.UserSpace.X = .init(0),
+            y: PDF.UserSpace.Y = .init(0),
             width: PDF.UserSpace.Width,
             height: PDF.UserSpace.Height,
             fill: PDF.Color? = nil,
@@ -67,7 +67,7 @@ extension PDF.UserSpace.Rectangle {
     }
 
     /// Create a styled PDF rectangle with stroke
-    public func stroked(_ color: PDF.Color, width: PDF.UserSpace.Width = 1) -> PDF.Rectangle {
+    public func stroked(_ color: PDF.Color, width: PDF.UserSpace.Width = .init(1)) -> PDF.Rectangle {
         PDF.Rectangle(self, stroke: .init(color, width: width))
     }
 
