@@ -31,7 +31,8 @@ let package = Package(
             name: "PDF Standard Tests",
             dependencies: [
                 "PDF Standard",
-            ]
+            ],
+            path: "Tests/PDF Standard Tests"
         ),
     ],
     swiftLanguageModes: [.v6]
