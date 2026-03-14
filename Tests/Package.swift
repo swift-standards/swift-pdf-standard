@@ -33,6 +33,14 @@ let package = Package(
             ],
             path: "PDF Standard Snapshot Tests"
         ),
+        .testTarget(
+            name: "PDF Standard Performance Tests",
+            dependencies: [
+                .product(name: "PDF Standard", package: "swift-pdf-standard"),
+                .product(name: "Testing", package: "swift-testing"),
+            ],
+            path: "PDF Standard Performance Tests"
+        ),
     ],
     swiftLanguageModes: [.v6]
 )

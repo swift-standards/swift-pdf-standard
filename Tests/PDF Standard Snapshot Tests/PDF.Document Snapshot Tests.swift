@@ -7,14 +7,16 @@ import Testing
 import Tests_Inline_Snapshot
 import PDF_Standard_Test_Support
 
-@Suite
-struct PDFDocumentSnapshotTests {
-    @Suite struct Snapshot {}
+extension PDF.Document {
+    @Suite
+    struct Test {
+        @Suite struct Snapshot {}
+    }
 }
 
 // MARK: - Snapshot
 
-extension PDFDocumentSnapshotTests.Snapshot {
+extension PDF.Document.Test.Snapshot {
     @Test
     func `simple document`() {
         let document = PDF.Document(
