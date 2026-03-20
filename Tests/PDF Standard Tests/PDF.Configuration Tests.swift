@@ -26,7 +26,7 @@ extension PDF.Configuration.Test.Unit {
     @Test
     func `default configuration uses 72 point margins`() {
         let config = PDF.Configuration()
-        #expect(config.margins == PDF.UserSpace.EdgeInsets(all: 72))
+        #expect(config.margins == PDF.UserSpace.Insets(all: 72))
     }
 
     @Test

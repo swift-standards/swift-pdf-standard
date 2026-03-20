@@ -24,7 +24,7 @@ extension PDF {
         public var paperSize: PDF.UserSpace.Rectangle
         
         /// Page margins (default: 72 points / 1 inch on all sides)
-        public var margins: PDF.UserSpace.EdgeInsets
+        public var margins: PDF.UserSpace.Insets
         
         // MARK: - Typography
         
@@ -58,7 +58,7 @@ extension PDF {
         
         public init(
             paperSize: PDF.UserSpace.Rectangle = .a4,
-            margins: PDF.UserSpace.EdgeInsets = .init(all: 72),
+            margins: PDF.UserSpace.Insets = .init(all: 72),
             defaultFont: PDF.Font = .times,
             defaultFontSize: PDF.UserSpace.Size<1> = 12,
             defaultColor: PDF.Color = .black,
