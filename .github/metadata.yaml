@@ -1,6 +1,6 @@
 # .github/metadata.yaml
 # Triaged by AI-assisted bulk pass (2026-04-29).
-description: "PDF standard wrapper combining ISO 32000 in Swift."
+description: "PDF meta-package composing ISO 32000 with Flate compression support for Swift."
 topics:
   - standards
   - pdf
