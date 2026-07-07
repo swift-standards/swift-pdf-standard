@@ -2,8 +2,8 @@
 //
 // Performance tests for PDF document generation
 
-import Testing
 import PDF_Standard
+import Testing
 
 @Suite(.serialized)
 struct PDFDocumentPerformance {

@@ -67,7 +67,8 @@ extension PDF.UserSpace.Rectangle {
     }
 
     /// Create a styled PDF rectangle with stroke
-    public func stroked(_ color: PDF.Color, width: PDF.UserSpace.Width = .init(1)) -> PDF.Rectangle {
+    public func stroked(_ color: PDF.Color, width: PDF.UserSpace.Width = .init(1)) -> PDF.Rectangle
+    {
         PDF.Rectangle(self, stroke: .init(color, width: width))
     }
 

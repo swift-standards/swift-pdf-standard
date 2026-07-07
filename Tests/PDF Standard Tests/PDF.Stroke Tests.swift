@@ -2,8 +2,8 @@
 //
 // Unit tests for PDF.Stroke
 
-import Testing
 import PDF_Standard
+import Testing
 
 extension PDF.Stroke {
     @Suite

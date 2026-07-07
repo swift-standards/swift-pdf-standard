@@ -2,8 +2,8 @@
 //
 // Unit tests for PDF.Rectangle
 
-import Testing
 import PDF_Standard
+import Testing
 
 extension PDF.Rectangle {
     @Suite

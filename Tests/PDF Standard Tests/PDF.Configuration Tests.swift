@@ -2,8 +2,8 @@
 //
 // Unit tests for PDF.Configuration
 
-import Testing
 import PDF_Standard
+import Testing
 
 extension PDF.Configuration {
     @Suite

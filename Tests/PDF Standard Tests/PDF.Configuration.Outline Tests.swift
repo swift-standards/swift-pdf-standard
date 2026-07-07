@@ -2,8 +2,8 @@
 //
 // Unit tests for PDF.Configuration.Outline
 
-import Testing
 import PDF_Standard
+import Testing
 
 extension PDF.Configuration.Outline {
     @Suite
