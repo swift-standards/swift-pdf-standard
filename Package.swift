@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swift-iso/swift-iso-32000.git", branch: "main"),
-        // .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0")
+        // .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.0")
     ],
     targets: [
         .target(
