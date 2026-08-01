@@ -9,7 +9,7 @@ extension PDF.Configuration.Outline {
     @Suite
     struct Test {
         @Suite struct Unit {}
-        @Suite struct EdgeCase {}
+        @Suite struct `Edge Case` {}
     }
 }
 
@@ -72,7 +72,7 @@ extension PDF.Configuration.Outline.Test.Unit {
 
 // MARK: - Edge Case
 
-extension PDF.Configuration.Outline.Test.EdgeCase {
+extension PDF.Configuration.Outline.Test.`Edge Case` {
 
     @Test
     func `openToLevel zero collapses all levels`() {

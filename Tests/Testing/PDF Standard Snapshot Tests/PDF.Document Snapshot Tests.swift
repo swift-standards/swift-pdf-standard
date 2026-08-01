@@ -101,6 +101,8 @@ extension PDF.Document.Test.Snapshot {
             contentBuilder.setFont(pdfFont, size: 14)
             contentBuilder.moveText(dx: 72, dy: dy)
             contentBuilder.showText(
+                // swift-linter:disable:next raw value access
+                // REASON: same-package snapshot test rendering the font's wire name into the PDF content stream.
                 "\(pdfFont.baseFontName.rawValue): The quick brown fox jumps over the lazy dog."
             )
             dy = -30

@@ -9,7 +9,7 @@ extension PDF.Configuration {
     @Suite
     struct Test {
         @Suite struct Unit {}
-        @Suite struct EdgeCase {}
+        @Suite struct `Edge Case` {}
     }
 }
 
@@ -126,7 +126,7 @@ extension PDF.Configuration.Test.Unit {
 
 // MARK: - Edge Case
 
-extension PDF.Configuration.Test.EdgeCase {
+extension PDF.Configuration.Test.`Edge Case` {
 
     @Test
     func `zero margins produce content equal to paper size`() {

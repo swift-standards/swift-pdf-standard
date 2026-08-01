@@ -9,7 +9,7 @@ extension PDF.Stroke {
     @Suite
     struct Test {
         @Suite struct Unit {}
-        @Suite struct EdgeCase {}
+        @Suite struct `Edge Case` {}
     }
 }
 
@@ -82,7 +82,7 @@ extension PDF.Stroke.Test.Unit {
 
 // MARK: - Edge Case
 
-extension PDF.Stroke.Test.EdgeCase {
+extension PDF.Stroke.Test.`Edge Case` {
 
     @Test
     func `stroke with all named colors`() {

@@ -9,7 +9,7 @@ extension PDF.Rectangle {
     @Suite
     struct Test {
         @Suite struct Unit {}
-        @Suite struct EdgeCase {}
+        @Suite struct `Edge Case` {}
     }
 }
 
@@ -134,7 +134,7 @@ extension PDF.Rectangle.Test.Unit {
 
 // MARK: - Edge Case
 
-extension PDF.Rectangle.Test.EdgeCase {
+extension PDF.Rectangle.Test.`Edge Case` {
 
     @Test
     func `rectangles with different fills are not equal`() {
