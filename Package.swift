@@ -10,13 +10,13 @@ let package = Package(
         .iOS(.v26),
         .tvOS(.v26),
         .watchOS(.v26),
-        .visionOS(.v26)
+        .visionOS(.v26),
     ],
     products: [
         .library(name: "PDF Standard", targets: ["PDF Standard"])
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-iso/swift-iso-32000.git", branch: "main"),
+        .package(url: "https://github.com/swift-iso/swift-iso-32000.git", branch: "main")
         // .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.0")
     ],
     targets: [
@@ -24,13 +24,13 @@ let package = Package(
             name: "PDF Standard",
             dependencies: [
                 .product(name: "ISO 32000", package: "swift-iso-32000"),
-                .product(name: "ISO 32000 Flate", package: "swift-iso-32000")
+                .product(name: "ISO 32000 Flate", package: "swift-iso-32000"),
             ]
         ),
         .testTarget(
             name: "PDF Standard Tests",
             dependencies: [
-                "PDF Standard",
+                "PDF Standard"
             ],
             path: "Tests/PDF Standard Tests"
         ),
