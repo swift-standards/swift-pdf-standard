@@ -17,12 +17,12 @@ extension PDF.Configuration {
         public var color: ISO_32000.DeviceRGB?
 
         /// Text style flags for outline items
-        public var flags: ISO_32000.Outline.ItemFlags
+        public var flags: ISO_32000.Outline.ItemOptions
 
         public init(
             openToLevel: Int = 1,
             color: ISO_32000.DeviceRGB? = nil,
-            flags: ISO_32000.Outline.ItemFlags = []
+            flags: ISO_32000.Outline.ItemOptions = []
         ) {
             self.openToLevel = openToLevel
             self.color = color
