@@ -1,7 +1,3 @@
-// PDF.Stroke Tests.swift
-//
-// Unit tests for PDF.Stroke
-
 import PDF_Standard
 import Testing
 
@@ -12,8 +8,6 @@ extension PDF.Stroke {
         @Suite struct `Edge Case` {}
     }
 }
-
-// MARK: - Unit
 
 extension PDF.Stroke.Test.Unit {
 
@@ -79,8 +73,6 @@ extension PDF.Stroke.Test.Unit {
         #expect(stroke.color == .gray(0.5))
     }
 }
-
-// MARK: - Edge Case
 
 extension PDF.Stroke.Test.`Edge Case` {
 

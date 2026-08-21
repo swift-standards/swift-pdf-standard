@@ -1,7 +1,3 @@
-// PDF.Rectangle Tests.swift
-//
-// Unit tests for PDF.Rectangle
-
 import PDF_Standard
 import Testing
 
@@ -12,8 +8,6 @@ extension PDF.Rectangle {
         @Suite struct `Edge Case` {}
     }
 }
-
-// MARK: - Unit
 
 extension PDF.Rectangle.Test.Unit {
 
@@ -89,8 +83,6 @@ extension PDF.Rectangle.Test.Unit {
     }
 }
 
-// MARK: - UserSpace.Rectangle convenience extensions
-
 extension PDF.Rectangle.Test.Unit {
 
     @Test
@@ -131,8 +123,6 @@ extension PDF.Rectangle.Test.Unit {
         #expect(styled.stroke == nil)
     }
 }
-
-// MARK: - Edge Case
 
 extension PDF.Rectangle.Test.`Edge Case` {
 

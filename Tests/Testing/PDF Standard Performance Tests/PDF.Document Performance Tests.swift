@@ -1,7 +1,3 @@
-// PDF.Document Performance Tests.swift
-//
-// Performance tests for PDF document generation
-
 import PDF_Standard
 import Testing
 
@@ -18,8 +14,6 @@ extension PDF.Document.Test {
     struct Integration {
         @Suite(.serialized)
         struct Performance {
-
-            // MARK: - Configuration Construction
 
             @Test(.timed(iterations: 1000, warmup: 100))
             func `Configuration default construction`() {
@@ -55,8 +49,6 @@ extension PDF.Document.Test {
                 let _ = config.content
             }
 
-            // MARK: - Rectangle Construction
-
             @Test(.timed(iterations: 1000, warmup: 100))
             func `Rectangle from geometry with fill`() {
                 let _ = PDF.Rectangle(.a4, fill: .red)
@@ -74,14 +66,10 @@ extension PDF.Document.Test {
                 )
             }
 
-            // MARK: - Stroke Construction
-
             @Test(.timed(iterations: 1000, warmup: 100))
             func `Stroke construction`() {
                 let _ = PDF.Stroke(.black, width: .init(2))
             }
-
-            // MARK: - Document Generation
 
             @Test(.timed(iterations: 100, warmup: 10))
             func `single page document generation`() {
@@ -159,8 +147,6 @@ extension PDF.Document.Test {
                 )
                 let _ = document.bytes
             }
-
-            // MARK: - UserSpace.Rectangle Convenience Methods
 
             @Test(.timed(iterations: 1000, warmup: 100))
             func `filled convenience method`() {

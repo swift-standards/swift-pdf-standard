@@ -1,7 +1,3 @@
-// PDF.Configuration Tests.swift
-//
-// Unit tests for PDF.Configuration
-
 import PDF_Standard
 import Testing
 
@@ -12,8 +8,6 @@ extension PDF.Configuration {
         @Suite struct `Edge Case` {}
     }
 }
-
-// MARK: - Unit
 
 extension PDF.Configuration.Test.Unit {
 
@@ -78,7 +72,7 @@ extension PDF.Configuration.Test.Unit {
             margins: .init(all: 72)
         )
         let content = config.content
-        // Letter is 612x792, minus 72*2=144 on each axis
+
         #expect(content.width == PDF.UserSpace.Width(612 - 144))
         #expect(content.height == PDF.UserSpace.Height(792 - 144))
     }
@@ -123,8 +117,6 @@ extension PDF.Configuration.Test.Unit {
         #expect(config.version == .v2_0)
     }
 }
-
-// MARK: - Edge Case
 
 extension PDF.Configuration.Test.`Edge Case` {
 

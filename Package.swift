@@ -2,7 +2,6 @@
 
 import PackageDescription
 
-// swift-pdf-standard: Unified PDF API with ergonomic coordinate system
 let package = Package(
     name: "swift-pdf-standard",
     platforms: [
@@ -17,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swift-iso/swift-iso-32000.git", branch: "main")
-        // .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.0")
+
     ],
     targets: [
         .target(

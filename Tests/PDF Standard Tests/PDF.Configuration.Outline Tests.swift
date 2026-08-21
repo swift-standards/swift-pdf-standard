@@ -1,7 +1,3 @@
-// PDF.Configuration.Outline Tests.swift
-//
-// Unit tests for PDF.Configuration.Outline
-
 import PDF_Standard
 import Testing
 
@@ -12,8 +8,6 @@ extension PDF.Configuration.Outline {
         @Suite struct `Edge Case` {}
     }
 }
-
-// MARK: - Unit
 
 extension PDF.Configuration.Outline.Test.Unit {
 
@@ -69,8 +63,6 @@ extension PDF.Configuration.Outline.Test.Unit {
         #expect(outline.flags == .bold)
     }
 }
-
-// MARK: - Edge Case
 
 extension PDF.Configuration.Outline.Test.`Edge Case` {
 
