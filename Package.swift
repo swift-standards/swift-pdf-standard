@@ -29,17 +29,13 @@ let package = Package(
         .testTarget(
             name: "PDF Standard Tests",
             dependencies: [
-                "PDF Standard"
+                .target(name: "PDF Standard")
             ],
             path: "Tests/PDF Standard Tests"
         ),
     ],
     swiftLanguageModes: [.v6]
 )
-
-extension String {
-    var tests: Self { self + " Tests" }
-}
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
     let ecosystem: [SwiftSetting] = [
