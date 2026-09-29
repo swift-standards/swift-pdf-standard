@@ -56,8 +56,8 @@ extension PDF.Configuration {
 
     public var content: PDF.UserSpace.Size<2> {
         .init(
-            width: paperSize.width - margins.horizontal,
-            height: paperSize.height - margins.vertical
+            width: paperSize.width - PDF.UserSpace.Width(_unchecked: margins.horizontal),
+            height: paperSize.height - PDF.UserSpace.Height(_unchecked: margins.vertical)
         )
     }
 }
