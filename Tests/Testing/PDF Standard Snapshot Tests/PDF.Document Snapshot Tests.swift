@@ -45,7 +45,7 @@ extension PDF.Document.Test.Snapshot {
 
     @Test
     func `multi-page document`() {
-        func page(_ title: Swift.String, _ body: Swift.String) -> PDF.Page {
+        func page(_ title: Swift::String, _ body: Swift::String) -> PDF.Page {
             PDF.Page(
                 mediaBox: .a4,
                 content: PDF.ContentStream { builder in
