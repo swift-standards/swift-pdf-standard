@@ -1,30 +1,7 @@
-# PDF Standard
+# swift-pdf-standard
 
-![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+Use this package when you build PDF files at the level of the ISO 32000 document model: pages, content streams, fonts and resources, with Flate compression available. Start from `PDF.Document`, and from `PDF.Configuration` for page size, margins and default text settings. `PDF` is `ISO_32000` from swift-iso-32000, which this package imports for you along with its Flate support and Geometry. If you would rather write content as HTML views or Markdown, use swift-pdf. If you want to depend on the ISO 32000 implementation directly, use swift-iso-32000.
 
-A convenience namespace for the PDF document model in Swift — aliases the ISO 32000 definitions under a single `PDF` surface.
+## Laws
 
-## Installation
-
-Add to your `Package.swift`:
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/swift-standards/swift-pdf-standard.git", branch: "main")
-]
-```
-
-Add the product to your target:
-
-```swift
-.target(
-    name: "App",
-    dependencies: [
-        .product(name: "PDF Standard", package: "swift-pdf-standard")
-    ]
-)
-```
-
-## License
-
-Apache 2.0. See [LICENSE.md](LICENSE.md).
+- `PDF.Configuration.content` is the paper size less the margins on both sides, so 72 point margins on US Letter leave 468 by 648 points. `PDF.Configuration.mediaBox` is the paper size itself.
