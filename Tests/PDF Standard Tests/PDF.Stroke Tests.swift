@@ -1,7 +1,9 @@
 import PDF_Standard
 import Testing
 
-extension PDF.Stroke {
+enum `PDF.Stroke Tests` {}
+
+extension `PDF.Stroke Tests` {
     @Suite
     struct Test {
         @Suite struct Unit {}
@@ -9,7 +11,7 @@ extension PDF.Stroke {
     }
 }
 
-extension PDF.Stroke.Test.Unit {
+extension `PDF.Stroke Tests`.Test.Unit {
 
     @Test
     func `init with color defaults width to 1`() {
@@ -74,7 +76,7 @@ extension PDF.Stroke.Test.Unit {
     }
 }
 
-extension PDF.Stroke.Test.`Edge Case` {
+extension `PDF.Stroke Tests`.Test.`Edge Case` {
 
     @Test
     func `stroke with all named colors`() {

@@ -1,7 +1,9 @@
 import PDF_Standard
 import Testing
 
-extension PDF.Configuration.Outline {
+enum `PDF.Configuration.Outline Tests` {}
+
+extension `PDF.Configuration.Outline Tests` {
     @Suite
     struct Test {
         @Suite struct Unit {}
@@ -9,7 +11,7 @@ extension PDF.Configuration.Outline {
     }
 }
 
-extension PDF.Configuration.Outline.Test.Unit {
+extension `PDF.Configuration.Outline Tests`.Test.Unit {
 
     @Test
     func `default outline opens to level 1`() {
@@ -64,7 +66,7 @@ extension PDF.Configuration.Outline.Test.Unit {
     }
 }
 
-extension PDF.Configuration.Outline.Test.`Edge Case` {
+extension `PDF.Configuration.Outline Tests`.Test.`Edge Case` {
 
     @Test
     func `openToLevel zero collapses all levels`() {

@@ -1,7 +1,9 @@
 import PDF_Standard
 import Testing
 
-extension PDF.Configuration {
+enum `PDF.Configuration Tests` {}
+
+extension `PDF.Configuration Tests` {
     @Suite
     struct Test {
         @Suite struct Unit {}
@@ -9,7 +11,7 @@ extension PDF.Configuration {
     }
 }
 
-extension PDF.Configuration.Test.Unit {
+extension `PDF.Configuration Tests`.Test.Unit {
 
     @Test
     func `default configuration uses A4 paper size`() {
@@ -118,7 +120,7 @@ extension PDF.Configuration.Test.Unit {
     }
 }
 
-extension PDF.Configuration.Test.`Edge Case` {
+extension `PDF.Configuration Tests`.Test.`Edge Case` {
 
     @Test
     func `zero margins produce content equal to paper size`() {

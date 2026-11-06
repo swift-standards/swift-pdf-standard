@@ -1,7 +1,7 @@
 import PDF_Standard
 import Testing
 
-extension PDF.Document.Test {
+extension `PDF.Document Tests`.Test {
     @Suite
     struct Unit {
     }

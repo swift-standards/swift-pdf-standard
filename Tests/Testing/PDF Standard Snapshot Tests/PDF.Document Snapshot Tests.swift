@@ -2,14 +2,16 @@ import PDF_Standard_Test_Support
 import Testing
 import Tests_Inline_Snapshot
 
-extension PDF.Document {
+enum `PDF.Document Tests` {}
+
+extension `PDF.Document Tests` {
     @Suite
     struct Test {
         @Suite struct Snapshot {}
     }
 }
 
-extension PDF.Document.Test.Snapshot {
+extension `PDF.Document Tests`.Test.Snapshot {
     @Test
     func `simple document`() {
         let document = PDF.Document(

@@ -1,7 +1,9 @@
 import PDF_Standard
 import Testing
 
-extension PDF.Rectangle {
+enum `PDF.Rectangle Tests` {}
+
+extension `PDF.Rectangle Tests` {
     @Suite
     struct Test {
         @Suite struct Unit {}
@@ -9,7 +11,7 @@ extension PDF.Rectangle {
     }
 }
 
-extension PDF.Rectangle.Test.Unit {
+extension `PDF.Rectangle Tests`.Test.Unit {
 
     @Test
     func `init from geometry with fill`() {
@@ -83,7 +85,7 @@ extension PDF.Rectangle.Test.Unit {
     }
 }
 
-extension PDF.Rectangle.Test.Unit {
+extension `PDF.Rectangle Tests`.Test.Unit {
 
     @Test
     func `filled convenience creates rectangle with fill color`() {
@@ -124,7 +126,7 @@ extension PDF.Rectangle.Test.Unit {
     }
 }
 
-extension PDF.Rectangle.Test.`Edge Case` {
+extension `PDF.Rectangle Tests`.Test.`Edge Case` {
 
     @Test
     func `rectangles with different fills are not equal`() {
