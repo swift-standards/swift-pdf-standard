@@ -7,8 +7,11 @@ enum `PDF.Document Tests` {}
 extension `PDF.Document Tests` {
     @Suite
     struct Test {
-        @Suite struct Snapshot {}
     }
+}
+
+extension `PDF.Document Tests`.Test {
+    @Suite struct Snapshot {}
 }
 
 extension `PDF.Document Tests`.Test.Snapshot {
